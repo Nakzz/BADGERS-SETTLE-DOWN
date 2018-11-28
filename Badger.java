@@ -20,7 +20,7 @@ public Badger (int size){
  * @param The left lower neighbor of current badger.
  */
 public Badger getLeftLowerNeighbor() {
-  return leftLowerneighbor;
+  return this.leftLowerneighbor;
   
 }
 
@@ -31,7 +31,7 @@ public Badger getLeftLowerNeighbor() {
  * @param badger - The new left lower neighbor of current badger.
  */
 public void setLeftLowerNeighbor(Badger badger) {
-  
+  this.leftLowerneighbor = badger;
 }
 
 /**
@@ -41,7 +41,7 @@ public void setLeftLowerNeighbor(Badger badger) {
  */
 
 public Badger getRightLowerNeighbor() {
-  return rightLowerneighbor; 
+  return this.rightLowerneighbor; 
 }
 
 /**
@@ -50,16 +50,16 @@ public Badger getRightLowerNeighbor() {
  * @param badger - The new right  lower neighbor of current badger.
  */
 public void setRightLowerNeighbor(Badger badger) {
-  
+  this.rightLowerneighbor = badger;
 }
 
 /**
- * Creates a new Badger with specified size.
+ * Retrieves the size of this badger.
  * 
- * @param size - The size of the newly constructed Badger object.
+ * @return The size of current badger.
  */
 int getSize() {
-  return 0;
+  return this.size;
 }
 
 }
