@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.ArrayDeque;
+
 //////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
 //
 // Title: ASCII Art
@@ -158,11 +161,21 @@ public class P9Tests {
     
     java.util.List<Badger> listOfBadgers = testSett.getAllBadgers();
     
+    int[] expectedSizes = {4,5,6,9};
     
-    
-    for(Badger x : listOfBadgers) {
-      System.out.println(x.getSize());
+    for(int i=0; i<listOfBadgers.size(); i++) {
+//      System.out.println(listOfBadgers.get(i).getSize());
+      if(listOfBadgers.get(i).getSize() != expectedSizes[i]) {
+        testPassed = false;
+      }
     }
+
+    int expectedHeight = 2;
+    
+//    System.out.println(testSett.getHeight());
+    if(expectedHeight != testSett.getHeight()) testPassed = false;
+    
+    if(testSett.getLargestBadger().getSize() !=9) testPassed =false;
     
     return testPassed;
   }

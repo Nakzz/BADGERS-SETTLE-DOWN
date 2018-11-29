@@ -188,7 +188,9 @@ public class Sett {
    * @return The number of Badgers living in this Sett.
    */
   public int countBadger() {
+    if(this.topBadger != null)
     return countHelper(this.topBadger);
+    else return 0;
   }
 
   /**
@@ -222,11 +224,12 @@ public class Sett {
     
     java.util.List<Badger> listOfBadgers = new ArrayList<Badger>();
     
-    getAllHelper(this.topBadger, listOfBadgers);
-    
-    
+    if(this.topBadger != null) {
+      getAllHelper(this.topBadger, listOfBadgers);
     return listOfBadgers;
-
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -238,19 +241,19 @@ public class Sett {
    *        Badger node. The contents of this list should be in ascending order by Badger size.
    */
   private void getAllHelper(Badger current, java.util.List<Badger> allBadgers) {
-    // TODO: implement this method
-    
-    if(current.getLeftLowerNeighbor() == null) {
-      allBadgers.add(current);
-      return; }
-//    else allBadgers.add(current);
-    
-    getAllHelper(current.getLeftLowerNeighbor(), allBadgers);
-    getAllHelper(current.getRightLowerNeighbor(), allBadgers);
     
     
+    if(current.getLeftLowerNeighbor() != null) {
+      getAllHelper(current.getLeftLowerNeighbor(), allBadgers);
+ } 
+//    System.out.println("Adding another");
+    allBadgers.add(current);
     
-  }
+    if(current.getRightLowerNeighbor() != null) {
+      getAllHelper(current.getRightLowerNeighbor(), allBadgers);
+ } 
+ }
+
 
   /**
    * Computes the height of the Sett, as the number of nodes from root to the deepest leaf Badger
@@ -258,10 +261,11 @@ public class Sett {
    * 
    * @return The depth of this Sett.
    */
-  public int getHeight() {
-    // TODO: implement this method
-    return 0;
-
+  public int getHeight() {    
+    
+    if(this.topBadger != null)
+      return getHeightHelper(this.topBadger);
+    else return 0;
   }
 
   /**
@@ -272,9 +276,21 @@ public class Sett {
    * @return The height of the (sub) tree that we are calculating.
    */
   private int getHeightHelper(Badger current) {
-    // TODO: implement this method
 
-    return 0;
+    int height = 0;
+    if(current.getLeftLowerNeighbor()==null || current.getRightLowerNeighbor() == null) {
+      return height+1;
+    } else {
+      if(current.getLeftLowerNeighbor()!=null ) {
+        height += getHeightHelper(current.getLeftLowerNeighbor());
+      }
+      
+      if(current.getRightLowerNeighbor() != null) {
+        height += getHeightHelper(current.getRightLowerNeighbor());
+      }     
+    }
+
+    return height;
 
   }
 
@@ -285,8 +301,12 @@ public class Sett {
    */
   public Badger getLargestBadger() {
 
-    // TODO: implement this method
-    return null;
+    java.util.List<Badger> listOfBadgers = getAllBadgers();
+    
+    if(this.topBadger != null)
+      return listOfBadgers.get(listOfBadgers.size() -1);
+    else
+      return null;
 
   }
 
