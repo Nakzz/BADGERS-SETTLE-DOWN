@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Sett {
@@ -46,29 +47,19 @@ public class Sett {
    */
   public void settleBadger(int size) throws java.lang.IllegalArgumentException {
 
-    // TODO: throw error if same size exists
     boolean badgerFound =false;
     try {
       findBadger(size);
       badgerFound = true;
     } catch (NoSuchElementException e) {
       badgerFound = false;
-//      throw new java.lang.IllegalArgumentException("WARNING: failed to find a badger with size " + size + " in the sett");
     }
     
     
     if(badgerFound)  throw new java.lang.IllegalArgumentException("WARNING: failed to find a badger with size " + size + " in the sett");
-//    try {
-//      findBadger(size);
-//    } catch (IllegalArgumentException e) {
-//     
-//    }
+
 
     Badger newBadger = new Badger(size);
-
-    // for(int i = 0; i < size; i++) {
-    // currentBadger = findBadger(i);
-    // }
 
     if (this.topBadger != null) {
 
@@ -93,7 +84,18 @@ public class Sett {
 
   private void settleHelper(Badger current, Badger newBadger)
     throws java.lang.IllegalArgumentException {
-//TODO: throw illegal
+  // Pointless since base method already checks it but who cares about efficiency. 
+    boolean badgerFound =false;
+    try {
+      findBadger(newBadger.getSize());
+      badgerFound = true;
+    } catch (NoSuchElementException e) {
+      badgerFound = false;
+    }
+    
+    
+    if(badgerFound)  throw new java.lang.IllegalArgumentException("WARNING: failed to find a badger with size " + newBadger.getSize() + " in the sett");
+
     
     if (current.getSize() > newBadger.getSize()) {
       // enter left node
@@ -123,19 +125,23 @@ public class Sett {
    */
   public Badger findBadger(int size) throws java.util.NoSuchElementException {
 
-    try {
     Badger searchedBadger = findHelper(this.topBadger, size);
-    return searchedBadger;
-    } catch (NoSuchElementException e) {
-      throw new java.util.NoSuchElementException(
-        "WARNING: failed to find a badger with size " + size + " in the sett");
-    }
-    //TODO: should catch already given error and handle that, correct?
-//    if (searchedBadger == null)
+    
+//    try {
+//    Badger searchedBadger = findHelper(this.topBadger, size);
+//    return searchedBadger;
+//    } catch (NoSuchElementException e) {
 //      throw new java.util.NoSuchElementException(
 //        "WARNING: failed to find a badger with size " + size + " in the sett");
-//    else
-//      return searchedBadger;
+//    }
+//    
+    //should catch already given error and handle that, correct?
+    
+    if (searchedBadger == null)
+      throw new java.util.NoSuchElementException(
+        "WARNING: failed to find a badger with size " + size + " in the sett");
+    else
+      return searchedBadger;
 
   }
 
@@ -182,9 +188,7 @@ public class Sett {
    * @return The number of Badgers living in this Sett.
    */
   public int countBadger() {
-    // TODO: implement this method
-    return 0;
-
+    return countHelper(this.topBadger);
   }
 
   /**
@@ -195,8 +199,16 @@ public class Sett {
    * @return the number of Badgers living in the Sett rooted at the current Badger.
    */
   private int countHelper(Badger current) {
-    // TODO: implement this method
-    return 0;
+    
+    int count =0;
+    
+    if(current == null)
+      return count; 
+    
+    count +=countHelper(current.getLeftLowerNeighbor());
+    count +=countHelper(current.getRightLowerNeighbor());
+    
+    return count+1;
 
   }
 
@@ -207,8 +219,13 @@ public class Sett {
    * @return A list of all Badgers living in the Sett in ascending order by size.
    */
   public java.util.List<Badger> getAllBadgers() {
-    // TODO: implement this method
-    return null;
+    
+    java.util.List<Badger> listOfBadgers = new ArrayList<Badger>();
+    
+    getAllHelper(this.topBadger, listOfBadgers);
+    
+    
+    return listOfBadgers;
 
   }
 
@@ -222,6 +239,17 @@ public class Sett {
    */
   private void getAllHelper(Badger current, java.util.List<Badger> allBadgers) {
     // TODO: implement this method
+    
+    if(current.getLeftLowerNeighbor() == null) {
+      allBadgers.add(current);
+      return; }
+//    else allBadgers.add(current);
+    
+    getAllHelper(current.getLeftLowerNeighbor(), allBadgers);
+    getAllHelper(current.getRightLowerNeighbor(), allBadgers);
+    
+    
+    
   }
 
   /**

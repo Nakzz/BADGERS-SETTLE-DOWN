@@ -154,8 +154,15 @@ public class P9Tests {
     
     }
     
+    if(testSett.countBadger() != 4) testPassed = false;
+    
+    java.util.List<Badger> listOfBadgers = testSett.getAllBadgers();
     
     
+    
+    for(Badger x : listOfBadgers) {
+      System.out.println(x.getSize());
+    }
     
     return testPassed;
   }
