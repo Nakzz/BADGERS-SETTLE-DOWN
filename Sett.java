@@ -1,6 +1,46 @@
+//////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
+//
+// Title: Badgers Settle Down
+// Course: CS300, Fall 2018
+//
+// Author: Ajmain Naqib
+// Email: naqib@wisc.edu
+// Lecturer's Name: Gary Dahl
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name:
+// Partner Email:
+// Partner Lecturer's Name:
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+// __ Write-up states that pair programming is allowed for this assignment.
+// __ We have both read and understand the course Pair Programming Policy.
+// __ We have registered our team prior to the team registration deadline.
+//
+///////////////////////////// CREDIT OUTSIDE HELP /////////////////////////////
+//
+// Students who get help from sources other than their partner must fully
+// acknowledge and credit those sources of help here. Instructors and TAs do
+// not need to be credited here, but tutors, friends, relatives, room mates,
+// strangers, and others do. If you received no outside help from either type
+// of source, then please explicitly indicate NONE.
+//
+// Persons: None
+// Online Sources: Piazza finding issue with isEmpty(). Was returning wrong.
+//
+/////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+
+/**
+ * Sett class arranges all the badger's in a BST
+ * 
+ * @author Ajmain Naqib
+ *
+ */
 public class Sett {
   private Badger topBadger;
 
@@ -48,17 +88,17 @@ public class Sett {
   public void settleBadger(int size) throws java.lang.IllegalArgumentException {
 
     boolean badgerFound =false;
+    //throw exception if same size badger is found.
     try {
-      findBadger(size);
+      findBadger(size); 
       badgerFound = true;
     } catch (NoSuchElementException e) {
       badgerFound = false;
     }
     
-    
     if(badgerFound)  throw new java.lang.IllegalArgumentException("WARNING: failed to find a badger with size " + size + " in the sett");
 
-
+    //add's new badger to BST appropriately
     Badger newBadger = new Badger(size);
 
     if (this.topBadger != null) {
@@ -85,6 +125,7 @@ public class Sett {
   private void settleHelper(Badger current, Badger newBadger)
     throws java.lang.IllegalArgumentException {
   // Pointless since base method already checks it but who cares about efficiency. 
+    //throw exception if same size badger is found.
     boolean badgerFound =false;
     try {
       findBadger(newBadger.getSize());
@@ -92,11 +133,9 @@ public class Sett {
     } catch (NoSuchElementException e) {
       badgerFound = false;
     }
-    
-    
     if(badgerFound)  throw new java.lang.IllegalArgumentException("WARNING: failed to find a badger with size " + newBadger.getSize() + " in the sett");
 
-    
+    //recursively adds badger
     if (current.getSize() > newBadger.getSize()) {
       // enter left node
       if (current.getLeftLowerNeighbor() == null)
@@ -137,6 +176,7 @@ public class Sett {
 //    
     //should catch already given error and handle that, correct?
     
+    //if badger with given size not found, throw exception
     if (searchedBadger == null)
       throw new java.util.NoSuchElementException(
         "WARNING: failed to find a badger with size " + size + " in the sett");
@@ -161,7 +201,7 @@ public class Sett {
    */
 
   private Badger findHelper(Badger current, int size) throws java.util.NoSuchElementException {
-    
+    //recursively looks for badger with given size
     if (current == null)
       throw new java.util.NoSuchElementException(
         "WARNING: failed to find a badger with size " + size + " in the sett");
@@ -201,7 +241,7 @@ public class Sett {
    * @return the number of Badgers living in the Sett rooted at the current Badger.
    */
   private int countHelper(Badger current) {
-    
+    // recursively find the number of badgers
     int count =0;
     
     if(current == null)
@@ -221,7 +261,7 @@ public class Sett {
    * @return A list of all Badgers living in the Sett in ascending order by size.
    */
   public java.util.List<Badger> getAllBadgers() {
-    
+    //creates list of Badgers
     java.util.List<Badger> listOfBadgers = new ArrayList<Badger>();
     
     if(this.topBadger != null) {
@@ -241,7 +281,7 @@ public class Sett {
    *        Badger node. The contents of this list should be in ascending order by Badger size.
    */
   private void getAllHelper(Badger current, java.util.List<Badger> allBadgers) {
-    
+    //recursively adds all badgers to referenced list
     
     if(current.getLeftLowerNeighbor() != null) {
       getAllHelper(current.getLeftLowerNeighbor(), allBadgers);
@@ -262,9 +302,8 @@ public class Sett {
    * @return The depth of this Sett.
    */
   public int getHeight() {    
-    
     if(this.topBadger != null)
-      return getHeightHelper(this.topBadger) +1;
+      return getHeightHelper(this.topBadger);
     else return 0;
   }
 
@@ -278,30 +317,32 @@ public class Sett {
   private int getHeightHelper(Badger current) {
 
     //Problem is with initialization
-//    int height = 0;
-//    if(current.getLeftLowerNeighbor()==null && current.getRightLowerNeighbor() == null) {
-//      return height;
-//    } else {
-//      if(current.getLeftLowerNeighbor()!=null ) {
-//        height += getHeightHelper(current.getLeftLowerNeighbor());
-//      }
-//      
-//      if(current.getRightLowerNeighbor() != null) {
-//        height += getHeightHelper(current.getRightLowerNeighbor());
-//      }     
-//    }
-//
-//    return height+1;
+    int height = 0;
+    if(current.getLeftLowerNeighbor()==null && current.getRightLowerNeighbor() == null) {
+      return height;
+    } else {
+      if(current.getLeftLowerNeighbor()!=null ) {
+        height += getHeightHelper(current.getLeftLowerNeighbor()) +1;
+      }
+      
+      if(current.getRightLowerNeighbor() != null) {
+        height += getHeightHelper(current.getRightLowerNeighbor()) +1;
+      } 
+      //height++;
+    }
+
+    return height;
     
+    //recursively find longest link of the BST
     
-    if (current == null) {
-      return -1;
-  }
-  if (getHeightHelper(current.getLeftLowerNeighbor()) > getHeightHelper(current.getRightLowerNeighbor())) {
-      return getHeightHelper(current.getLeftLowerNeighbor()) + 1;
-  } else {
-      return getHeightHelper(current.getRightLowerNeighbor()) + 1;
-  }
+//    if (current == null) {
+//      return -1;
+//  }
+//  if (getHeightHelper(current.getLeftLowerNeighbor()) > getHeightHelper(current.getRightLowerNeighbor())) {
+//      return getHeightHelper(current.getLeftLowerNeighbor()) + 1;
+//  } else {
+//      return getHeightHelper(current.getRightLowerNeighbor()) + 1;
+//  }
 
   }
 
@@ -312,6 +353,7 @@ public class Sett {
    */
   public Badger getLargestBadger() {
 
+    // sine getAllBadger is sorted, last element is largest
     java.util.List<Badger> listOfBadgers = getAllBadgers();
     
     if(this.topBadger != null)
@@ -326,6 +368,9 @@ public class Sett {
    * 
    */
   public void clear() {
+    //make the top reference null. 
+    //does garbage collection cleans the rest of badger references?
+    
     if(!isEmpty()) {
     this.topBadger = null;
 //    this.topBadger.setLeftLowerNeighbor(null);

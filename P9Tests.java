@@ -30,13 +30,12 @@ import java.util.ArrayDeque;
 // of source, then please explicitly indicate NONE.
 //
 // Persons: None
-// Online Sources:
-//
+// Online Sources: //
 /////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
 
 /**
- * Test class for ASCII Art program
+ * Test class for Badgers Settle Down
  * 
  * @author: Ajmain Naqib
  * @email: naqib@wisc.edu
@@ -58,6 +57,25 @@ public class P9Tests {
       System.out.println("settTest failed!");
 
     System.out.println(test + " tests failed!");
+    
+    Sett testSett = new Sett();
+    
+    testSett.settleBadger(10);
+    testSett.settleBadger(11);
+    testSett.settleBadger(12);
+    testSett.settleBadger(13);
+    testSett.settleBadger(8);
+    testSett.settleBadger(7);
+//    testSett.settleBadger(15);
+//    testSett.settleBadger(14);
+//    testSett.settleBadger(17);
+    
+    int expectedHeight = 4;
+
+    // checking getHeight
+     System.out.println(testSett.getHeight());
+    if (expectedHeight != testSett.getHeight())
+      System.out.println("WRONG!");
 
   }
 
@@ -122,30 +140,33 @@ public class P9Tests {
   public static boolean runAllSettTests() {
     boolean testPassed = true;
 
-
+    // empty sett
     Sett testSett = new Sett();
 
+    // new badger added
     int topBadgerSize = 5;
     testSett.settleBadger(topBadgerSize);
 
     Badger topBadger = testSett.getTopBadger();
 
+    // confirming the only badger's size
     if (topBadger.getSize() != topBadgerSize) {
       testPassed = false;
     }
 
+    // confirming smaller badger on left
     int leftBadgerSize = topBadgerSize - 1;
     testSett.settleBadger(leftBadgerSize);
-
     if (topBadger.getLeftLowerNeighbor().getSize() != leftBadgerSize)
       testPassed = false;
 
+    // confrming larger badger on right
     int rightBadgerSize = topBadgerSize + 1;
     testSett.settleBadger(rightBadgerSize);
-
     if (topBadger.getRightLowerNeighbor().getSize() != rightBadgerSize)
       testPassed = false;
 
+    // confirming proper implementation of BST
     int biggerBadgerSize = topBadgerSize + 4;
     testSett.settleBadger(biggerBadgerSize);
 
@@ -159,11 +180,12 @@ public class P9Tests {
         + topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize());
     }
 
+    // confirming findBadger functionality
     Badger findBadger = testSett.findBadger(biggerBadgerSize);
-
     if (topBadger.getRightLowerNeighbor().getRightLowerNeighbor() != findBadger)
       testPassed = false;
 
+    // checking proper exceptiop handling
     try {
       Badger findNonExistentBadger = testSett.findBadger(99);
     } catch (Exception e) {
@@ -173,9 +195,11 @@ public class P9Tests {
 
     }
 
+    // checking count
     if (testSett.countBadger() != 4)
       testPassed = false;
 
+    // checking getAllBadger
     java.util.List<Badger> listOfBadgers = testSett.getAllBadgers();
 
     int[] expectedSizes = {4, 5, 6, 9};
@@ -187,14 +211,15 @@ public class P9Tests {
       }
     }
 
-
+    // checking largest badger
     if (testSett.getLargestBadger().getSize() != 9)
       testPassed = false;
 
     testSett.settleBadger(10);
     int expectedHeight = 4;
 
-    System.out.println(testSett.getHeight());
+    // checking getHeight
+     System.out.println(testSett.getHeight());
     if (expectedHeight != testSett.getHeight())
       testPassed = false;
 
