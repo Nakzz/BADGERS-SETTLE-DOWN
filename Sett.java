@@ -316,33 +316,40 @@ public class Sett {
    */
   private int getHeightHelper(Badger current) {
 
-    //Problem is with initialization
-    int height = 0;
-    if(current.getLeftLowerNeighbor()==null && current.getRightLowerNeighbor() == null) {
-      return height;
-    } else {
-      if(current.getLeftLowerNeighbor()!=null ) {
-        height += getHeightHelper(current.getLeftLowerNeighbor()) +1;
-      }
-      
-      if(current.getRightLowerNeighbor() != null) {
-        height += getHeightHelper(current.getRightLowerNeighbor()) +1;
-      } 
-      //height++;
-    }
+    if (current == null) {
+      return -1;
+  }
+    
+  int leftBranch = getHeightHelper(current.getLeftLowerNeighbor());
+  int rightBranch = getHeightHelper(current.getRightLowerNeighbor());
 
-    return height;
-    
-    //recursively find longest link of the BST
-    
-//    if (current == null) {
-//      return -1;
-//  }
-//  if (getHeightHelper(current.getLeftLowerNeighbor()) > getHeightHelper(current.getRightLowerNeighbor())) {
-//      return getHeightHelper(current.getLeftLowerNeighbor()) + 1;
-//  } else {
-//      return getHeightHelper(current.getRightLowerNeighbor()) + 1;
-//  }
+  if (current == topBadger) {
+    leftBranch++;
+    rightBranch++;
+  }
+
+  if (leftBranch > leftBranch) {
+      return leftBranch + 1;
+  } else {
+      return rightBranch + 1;
+  }
+  
+    //Problem is with initialization
+//    int height = 0;
+//    if(current.getLeftLowerNeighbor()==null && current.getRightLowerNeighbor() == null) {
+//      return height;
+//    } else {
+//      if(current.getLeftLowerNeighbor()!=null ) {
+//        height += getHeightHelper(current.getLeftLowerNeighbor()) +1;
+//      }
+//      
+//      if(current.getRightLowerNeighbor() != null) {
+//        height += getHeightHelper(current.getRightLowerNeighbor()) +1;
+//      } 
+//      //height++;
+//    }
+
+
 
   }
 

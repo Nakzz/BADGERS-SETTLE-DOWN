@@ -58,24 +58,24 @@ public class P9Tests {
 
     System.out.println(test + " tests failed!");
     
-    Sett testSett = new Sett();
-    
-    testSett.settleBadger(10);
-    testSett.settleBadger(11);
-    testSett.settleBadger(12);
-    testSett.settleBadger(13);
-    testSett.settleBadger(8);
-    testSett.settleBadger(7);
+//    Sett testSett = new Sett();
+//    
+//    testSett.settleBadger(10);
+//    testSett.settleBadger(11);
+//    testSett.settleBadger(12);
+//    testSett.settleBadger(13);
+//    testSett.settleBadger(8);
+//    testSett.settleBadger(7);
 //    testSett.settleBadger(15);
 //    testSett.settleBadger(14);
 //    testSett.settleBadger(17);
     
-    int expectedHeight = 4;
-
-    // checking getHeight
-     System.out.println(testSett.getHeight());
-    if (expectedHeight != testSett.getHeight())
-      System.out.println("WRONG!");
+//    int expectedHeight = 4;
+//
+//    // checking getHeight
+//     System.out.println(testSett.getHeight());
+//    if (expectedHeight != testSett.getHeight())
+//      System.out.println("WRONG!");
 
   }
 
@@ -100,6 +100,9 @@ public class P9Tests {
   public static boolean badgerLeftTest() {
     Badger topBadger = new Badger(5);
 
+    if(topBadger.getSize() != 5)
+      return false;
+    
     int leftBadgerSize = 3;
     Badger leftBadger = new Badger(leftBadgerSize);
 
@@ -119,6 +122,9 @@ public class P9Tests {
   public static boolean badgerRightTest() {
     Badger topBadger = new Badger(5);
 
+    if(topBadger.getSize() != 5)
+      return false;
+    
     int rightBadgerSize = 3;
     Badger rightBadger = new Badger(rightBadgerSize);
 
@@ -191,7 +197,7 @@ public class P9Tests {
     } catch (Exception e) {
       if (!e.getMessage()
         .equalsIgnoreCase("WARNING: failed to find a badger with size " + 99 + " in the sett"))
-        return false;
+        testPassed = false;
 
     }
 
@@ -219,7 +225,7 @@ public class P9Tests {
     int expectedHeight = 4;
 
     // checking getHeight
-     System.out.println(testSett.getHeight());
+//     System.out.println(testSett.getHeight());
     if (expectedHeight != testSett.getHeight())
       testPassed = false;
 
