@@ -26,7 +26,7 @@ public class Sett {
    * @return true if this Sett is empty, false otherwise.
    */
   public boolean isEmpty() {
-    if (this.topBadger != null)
+    if (this.topBadger == null)
       return true;
     else
       return false;
@@ -264,7 +264,7 @@ public class Sett {
   public int getHeight() {    
     
     if(this.topBadger != null)
-      return getHeightHelper(this.topBadger);
+      return getHeightHelper(this.topBadger) +1;
     else return 0;
   }
 
@@ -277,20 +277,31 @@ public class Sett {
    */
   private int getHeightHelper(Badger current) {
 
-    int height = 0;
-    if(current.getLeftLowerNeighbor()==null || current.getRightLowerNeighbor() == null) {
-      return height+1;
-    } else {
-      if(current.getLeftLowerNeighbor()!=null ) {
-        height += getHeightHelper(current.getLeftLowerNeighbor());
-      }
-      
-      if(current.getRightLowerNeighbor() != null) {
-        height += getHeightHelper(current.getRightLowerNeighbor());
-      }     
-    }
-
-    return height;
+    //Problem is with initialization
+//    int height = 0;
+//    if(current.getLeftLowerNeighbor()==null && current.getRightLowerNeighbor() == null) {
+//      return height;
+//    } else {
+//      if(current.getLeftLowerNeighbor()!=null ) {
+//        height += getHeightHelper(current.getLeftLowerNeighbor());
+//      }
+//      
+//      if(current.getRightLowerNeighbor() != null) {
+//        height += getHeightHelper(current.getRightLowerNeighbor());
+//      }     
+//    }
+//
+//    return height+1;
+    
+    
+    if (current == null) {
+      return -1;
+  }
+  if (getHeightHelper(current.getLeftLowerNeighbor()) > getHeightHelper(current.getRightLowerNeighbor())) {
+      return getHeightHelper(current.getLeftLowerNeighbor()) + 1;
+  } else {
+      return getHeightHelper(current.getRightLowerNeighbor()) + 1;
+  }
 
   }
 
@@ -315,9 +326,10 @@ public class Sett {
    * 
    */
   public void clear() {
+    if(!isEmpty()) {
     this.topBadger = null;
-    this.topBadger.setLeftLowerNeighbor(null);
-    this.topBadger.setRightLowerNeighbor(null);
-  }
+//    this.topBadger.setLeftLowerNeighbor(null);
+//    this.topBadger.setRightLowerNeighbor(null);}
+  }}
 
 }

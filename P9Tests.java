@@ -3,7 +3,7 @@ import java.util.ArrayDeque;
 
 //////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
 //
-// Title: ASCII Art
+// Title: Badgers Settle Down
 // Course: CS300, Fall 2018
 //
 // Author: Ajmain Naqib
@@ -45,24 +45,32 @@ public class P9Tests {
 
   public static void main(String[] args) {
 
-    int test = 3;
+    int test = 2;
 
-    if (badgerLeftTest())
+    if (runAllBadgerTests())
       test--;
     else
-      System.out.println("badgerLeftTest failed!");
+      System.out.println("runAllBadgerTests() failed!");
 
-    if (badgerRightTest())
-      test--;
-    else
-      System.out.println("badgerRightTest failed!");
-    
-    if (settTest())
+    if (runAllSettTests())
       test--;
     else
       System.out.println("settTest failed!");
 
     System.out.println(test + " tests failed!");
+
+  }
+
+  /**
+   * This method runs all bagder class tests.
+   * 
+   * @return true if test passed, false if failed
+   */
+  public static boolean runAllBadgerTests() {
+    if (badgerLeftTest() && badgerRightTest())
+      return true;
+    else
+      return false;
 
   }
 
@@ -73,17 +81,18 @@ public class P9Tests {
    */
   public static boolean badgerLeftTest() {
     Badger topBadger = new Badger(5);
-    
+
     int leftBadgerSize = 3;
     Badger leftBadger = new Badger(leftBadgerSize);
-    
+
     topBadger.setLeftLowerNeighbor(leftBadger);
-    
-    if(topBadger.getLeftLowerNeighbor() == leftBadger)
-    return true;
-    else return false;
+
+    if (topBadger.getLeftLowerNeighbor() == leftBadger)
+      return true;
+    else
+      return false;
   }
-  
+
   /**
    * This method checks functionality of Badger class's right Neighbor functionality
    * 
@@ -91,92 +100,105 @@ public class P9Tests {
    */
   public static boolean badgerRightTest() {
     Badger topBadger = new Badger(5);
-    
+
     int rightBadgerSize = 3;
     Badger rightBadger = new Badger(rightBadgerSize);
-    
+
     topBadger.setRightLowerNeighbor(rightBadger);
-    
-    if(topBadger.getRightLowerNeighbor() == rightBadger)
-    return true;
-    else return false;
+
+    if (topBadger.getRightLowerNeighbor() == rightBadger)
+      return true;
+    else
+      return false;
   }
-  
-  
+
+
 
   /**
    * This method checks functionality of Sett class's functionality
    * 
    * @return true if test passed, false if failed
    */
-  public static boolean settTest() {
+  public static boolean runAllSettTests() {
     boolean testPassed = true;
-    
-   
+
+
     Sett testSett = new Sett();
-    
+
     int topBadgerSize = 5;
     testSett.settleBadger(topBadgerSize);
-    
-    Badger topBadger = testSett.getTopBadger();
-    
-    if(topBadger.getSize() != topBadgerSize) {
-      testPassed = false;
-    }
-    
-    int leftBadgerSize = topBadgerSize-1;
-    testSett.settleBadger(leftBadgerSize);
-    
-    if(topBadger.getLeftLowerNeighbor().getSize() != leftBadgerSize ) testPassed = false;
 
-    int rightBadgerSize = topBadgerSize+1;
-    testSett.settleBadger(rightBadgerSize);
-    
-    if(topBadger.getRightLowerNeighbor().getSize() != rightBadgerSize ) testPassed = false;
-    
-    int biggerBadgerSize = topBadgerSize+4;
-    testSett.settleBadger(biggerBadgerSize);
-    
-    if(topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize() != biggerBadgerSize ) {
+    Badger topBadger = testSett.getTopBadger();
+
+    if (topBadger.getSize() != topBadgerSize) {
       testPassed = false;
-      System.out.println("topBadger.getRightLowerNeighbor().getsize: " + topBadger.getRightLowerNeighbor().getSize());
-      System.out.println("topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getsize: " + topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize());
-      System.out.println("Size didn't match. Expecting: "+biggerBadgerSize + " but got: " +topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize() );
-    } 
-    
-    Badger findBadger = testSett.findBadger(biggerBadgerSize);
-    
-    if(topBadger.getRightLowerNeighbor().getRightLowerNeighbor()!= findBadger ) testPassed = false;
-    
-    try{
-      Badger findNonExistentBadger = testSett.findBadger(99);
-    } catch(Exception e) {
-      if (!e.getMessage().equalsIgnoreCase(
-        "WARNING: failed to find a badger with size " + 99 + " in the sett"))
-        return false;
-    
     }
-    
-    if(testSett.countBadger() != 4) testPassed = false;
-    
+
+    int leftBadgerSize = topBadgerSize - 1;
+    testSett.settleBadger(leftBadgerSize);
+
+    if (topBadger.getLeftLowerNeighbor().getSize() != leftBadgerSize)
+      testPassed = false;
+
+    int rightBadgerSize = topBadgerSize + 1;
+    testSett.settleBadger(rightBadgerSize);
+
+    if (topBadger.getRightLowerNeighbor().getSize() != rightBadgerSize)
+      testPassed = false;
+
+    int biggerBadgerSize = topBadgerSize + 4;
+    testSett.settleBadger(biggerBadgerSize);
+
+    if (topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize() != biggerBadgerSize) {
+      testPassed = false;
+      System.out.println("topBadger.getRightLowerNeighbor().getsize: "
+        + topBadger.getRightLowerNeighbor().getSize());
+      System.out.println("topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getsize: "
+        + topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize());
+      System.out.println("Size didn't match. Expecting: " + biggerBadgerSize + " but got: "
+        + topBadger.getRightLowerNeighbor().getRightLowerNeighbor().getSize());
+    }
+
+    Badger findBadger = testSett.findBadger(biggerBadgerSize);
+
+    if (topBadger.getRightLowerNeighbor().getRightLowerNeighbor() != findBadger)
+      testPassed = false;
+
+    try {
+      Badger findNonExistentBadger = testSett.findBadger(99);
+    } catch (Exception e) {
+      if (!e.getMessage()
+        .equalsIgnoreCase("WARNING: failed to find a badger with size " + 99 + " in the sett"))
+        return false;
+
+    }
+
+    if (testSett.countBadger() != 4)
+      testPassed = false;
+
     java.util.List<Badger> listOfBadgers = testSett.getAllBadgers();
-    
-    int[] expectedSizes = {4,5,6,9};
-    
-    for(int i=0; i<listOfBadgers.size(); i++) {
-//      System.out.println(listOfBadgers.get(i).getSize());
-      if(listOfBadgers.get(i).getSize() != expectedSizes[i]) {
+
+    int[] expectedSizes = {4, 5, 6, 9};
+
+    for (int i = 0; i < listOfBadgers.size(); i++) {
+      // System.out.println(listOfBadgers.get(i).getSize());
+      if (listOfBadgers.get(i).getSize() != expectedSizes[i]) {
         testPassed = false;
       }
     }
 
-    int expectedHeight = 2;
-    
-//    System.out.println(testSett.getHeight());
-    if(expectedHeight != testSett.getHeight()) testPassed = false;
-    
-    if(testSett.getLargestBadger().getSize() !=9) testPassed =false;
-    
+
+    if (testSett.getLargestBadger().getSize() != 9)
+      testPassed = false;
+
+    testSett.settleBadger(10);
+    int expectedHeight = 4;
+
+    System.out.println(testSett.getHeight());
+    if (expectedHeight != testSett.getHeight())
+      testPassed = false;
+
+
     return testPassed;
   }
 
