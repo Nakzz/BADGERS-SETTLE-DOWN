@@ -187,10 +187,18 @@ public class P9Tests {
     }
 
     // confirming findBadger functionality
-    Badger findBadger = testSett.findBadger(biggerBadgerSize);
-    if (topBadger.getRightLowerNeighbor().getRightLowerNeighbor() != findBadger)
-      testPassed = false;
+    try {
+      Badger findBadger = testSett.findBadger(biggerBadgerSize);
+      if (topBadger.getRightLowerNeighbor().getRightLowerNeighbor() != findBadger)
+        testPassed = false;
 
+    } catch (Exception e) {
+      if (!e.getMessage()
+        .equalsIgnoreCase("WARNING: failed to find a badger with size " + 99 + " in the sett"))
+        testPassed = false;
+
+    }
+   
     // checking proper exceptiop handling
     try {
       Badger findNonExistentBadger = testSett.findBadger(99);
