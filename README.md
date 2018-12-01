@@ -2,8 +2,9 @@
 
 **BADGERS SETTLE DOWN** is an project assignment at UW-Madison CS300 course to help understand and conceptualize the idea of Binary Search Tree. In this assignment we will help badgers settle down into a sett.  Since larger badgers have an easier time staying warm in the winter, we’ve decided to organize them into the northern right-most rooms within the sett.  And smaller badgers will be in the southern left-most rooms.  To help manage this, we will be using a Binary Search Tree (BST) organization that is ordered by the badgers’ size.  Below are some screenshots of the provided visualizer to help check the functionality of the Badger BST.
 
-Author: **Ajmain Naqib**
-
+Author: **[Ajmain Naqib](mailto:naqib@wisc.edu)**
+Course: CS300, Fall 2018
+Lecturer's Name: Gary Dahl
 Time spent: **6.7** hours spent in total
 
 ## Project Introduction
